@@ -1,0 +1,28 @@
+version: '3'
+services:
+  myfirstdemo:
+    image: manognach/myfirstrepo:1
+    container_name: myfirstrepoctr
+    ports:
+      - "8081:8080"
+    restart: always
+  mongovol:
+    restart: always
+    image: mongo:3.6.6
+    container_name: mongoctr
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+    ports:
+      - "27017:27017"
+    volumes:
+      - /var/lib/docker/volumes/mongohome/_data:/data/db
+  ngnix:
+    restart: always
+    image: nginx:latest
+    container_name: nginxctr
+    ports:
+      - "14256:443"
+      - "14243:80"
+    volumes:
+      - /var/lib/docker/volumes/nginxhome/_data:/data/db
